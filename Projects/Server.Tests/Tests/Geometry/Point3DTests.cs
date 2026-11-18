@@ -113,4 +113,16 @@ public class Point3DTests
         Assert.Equal(default, p);
         Assert.Throws<FormatException>(() => Point3D.Parse("(23,,-1)", null));
     }
+
+    [Fact]
+    public void TestPoint3DOrderingComparesZ()
+    {
+        Assert.False(new Point3D(0, 0, 5) < new Point3D(1, 1, 1));
+        Assert.True(new Point3D(0, 0, 1) < new Point3D(1, 1, 5));
+
+        var p = new Point3D(3, 4, 5);
+        var same = new Point3D(3, 4, 5);
+        Assert.True(p >= same);
+        Assert.True(p <= same);
+    }
 }
