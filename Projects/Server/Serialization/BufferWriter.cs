@@ -107,7 +107,7 @@ public class BufferWriter : IGenericWriter
         _buffer = newBuffer;
     }
 
-    public virtual void Flush() => Resize((int)Math.Clamp((long)_buffer.Length * 2, BufferSize, _buffer.Length + 1024 * 1024 * 64));
+    public virtual void Flush() => Resize((int)Math.Min(Math.Clamp((long)_buffer.Length * 2, BufferSize, _buffer.Length + 64L * 1024 * 1024), Array.MaxLength));
 
     /// <summary>
     /// Ensures capacity, returns a ref at the current position, and advances the index.
